@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Expense</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        <h2 class="mb-4">Add Expense</h2>
+
+        <!-- ✅ Error message display -->
+        <div th:if="${errorMessage}" class="alert alert-danger mb-3">
+            <span th:text="${errorMessage}">Expense exceeds your monthly income!</span>
+        </div>
+
+        <form th:action="@{/expense/add}" method="post" th:object="${expense}">
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" class="form-control" id="category" th:field="*{category}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="amount" class="form-label">Amount</label>
+                <input type="number" class="form-control" id="amount" th:field="*{amount}" step="0.01" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" th:field="*{date}">
+            </div>
+
+            <div class="mb-3">
+                <label for="note" class="form-label">Note</label>
+                <textarea class="form-control" id="note" th:field="*{note}" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Expense</button>
+            <a href="/dashboard" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
